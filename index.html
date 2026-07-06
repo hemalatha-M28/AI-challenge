@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JanConnect — Citizen-MP Collaboration Portal</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header>
+    <div class="container nav-container">
+      <div class="logo">
+        <a href="#/">
+          JanConnect<span class="logo-dot"></span>
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#/" class="nav-link active" id="nav-home">Home</a></li>
+          <li><a href="#/submit" class="nav-link" id="nav-submit">Submit Request</a></li>
+          <li><a href="#/my-submissions" class="nav-link" id="nav-my-subs">My Requests</a></li>
+          <li><a href="#/dashboard" class="nav-link" id="nav-dashboard">MP Dashboard</a></li>
+          <li>
+            <select class="lang-selector" id="langSelector" aria-label="Select Language">
+              <option value="en">English</option>
+              <option value="hi">हिन्दी (Hindi)</option>
+              <option value="ta">தமிழ் (Tamil)</option>
+            </select>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- Main Content Layout -->
+  <main class="container">
+    
+    <!-- Submission Success Notice -->
+    <div class="notice-banner" id="successBanner">
+      <div class="notice-banner-text">
+        <h4 id="banner-title">Suggestion Recorded</h4>
+        <p id="banner-desc">Your request has been successfully filed in the system database. You can track its progress under 'My Requests'.</p>
+      </div>
+      <button class="btn btn-sm btn-secondary" onclick="this.parentElement.classList.remove('visible')">Close</button>
+    </div>
+    <!-- PAGE 1: Landing Page -->
+    <section id="page-landing" class="page-section active">
+      <div class="asymmetric-layout">
+        
+        <!-- Left: Hero Text & Action -->
+        <div class="hero">
+          <div class="hero-content">
+            <div class="hero-subtitle" id="landing-subtitle">Constituency Engagement Platform</div>
+            <h1 id="landing-title">A direct channel between citizens of North Delhi and their representative.</h1>
+            <p class="hero-lead" id="landing-lead">
+              JanConnect is a civic ledger for the residents of North Delhi. Submit requests, voice local challenges, and upload photos of areas needing MP-funded development. Shri Rajesh Kumar, MP, and team review and prioritize these submissions for constituency development action.
+            </p>
+            <div style="display: flex; gap: 1rem;">
+              <a href="#/submit" class="btn btn-primary" id="landing-cta">Submit a Suggestion</a>
+              <a href="#/dashboard" class="btn btn-secondary" id="landing-secondary-cta">View MP Feed</a>
+            </div>
+          </div>
+        </div>
+        <!-- Right: MP Info & How It Works -->
+        <div>
+          <div class="constituency-tag" id="info-tag">North Delhi Constituency</div>
+          
+          <div class="info-block">
+            <h3 id="info-mp-title">Your Representative</h3>
+            <p style="font-weight: 600; margin-bottom: 0.25rem; color: var(--text-main);">Shri Rajesh Kumar</p>
+            <p style="font-size: 0.9rem; margin-bottom: 1rem;">Member of Parliament, Lok Sabha</p>
+            <p style="font-size: 0.85rem; border-top: 1px solid var(--border-color); padding-top: 1rem;">
+              "My office uses JanConnect to look beyond office files and listen to raw citizen reports. High-priority items receive funding priority from local development funds."
+            </p>
+          </div>
+          <div class="info-block">
+            <h3 id="info-how-title">How It Works</h3>
+            <ul class="editorial-list">
+              <li>
+                <h4 id="how-step1-title">Submit Local Issue</h4>
+                <p style="font-size: 0.85rem;" id="how-step1-desc">Describe the maintenance or development issue in your ward. Optionally attach a photo or record a short voice summary.</p>
+              </li>
+              <li>
+                <h4 id="how-step2-title">Community Upvotes</h4>
+                <p style="font-size: 0.85rem;" id="how-step2-desc">Other citizens browse public submissions and upvote. Urgent local issues naturally rise to the top.</p>
+              </li>
+              <li>
+                <h4 id="how-step3-title">Office Prioritization</h4>
+                <p style="font-size: 0.85rem;" id="how-step3-desc">The MP reviews submissions filtered by theme/area and updates their status from 'Received' to 'Prioritized'.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- PAGE 2: Citizen Submission Form -->
+    <section id="page-submit" class="page-section">
+      <div class="asymmetric-layout">
+        
+        <!-- Left: Form Body -->
+        <div class="form-card">
+          <h2 style="border: none; padding: 0; margin-bottom: 2rem;" id="form-heading">Submit a Constituency Suggestion</h2>
+          
+          <form id="submissionForm">
+            
+            <div class="form-group">
+              <label for="category" id="label-category">Category of Suggestion</label>
+              <select id="category" class="form-control" required>
+                <option value="" disabled selected id="opt-category-placeholder">Select a category...</option>
+                <option value="Roads & Footpaths" id="opt-roads">Roads & Footpaths</option>
+                <option value="Water Supply & Drainage" id="opt-water">Water Supply & Drainage</option>
+                <option value="Sanitation & Solid Waste" id="opt-sanitation">Sanitation & Solid Waste</option>
+                <option value="Streetlights & Power" id="opt-streetlights">Streetlights & Power</option>
+                <option value="Public Parks & Welfare" id="opt-parks">Public Parks & Welfare</option>
+                <option value="Public Safety & Roads" id="opt-safety">Public Safety & Roads</option>
+                <option value="Others" id="opt-others">Others</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="location" id="label-location">Location / Ward / Area</label>
+              <span class="label-desc" id="desc-location">Specify the ward number or locality name clearly (e.g., Ward 14, Patel Nagar)</span>
+              <input type="text" id="location" class="form-control" placeholder="e.g. Ward 12, Karol Bagh" required>
+            </div>
+            <div class="form-group">
+              <label for="description" id="label-desc">Description of Request</label>
+              <span class="label-desc" id="desc-explanation">Explain the problem, how long it has persisted, and what immediate action is needed.</span>
+              <textarea id="description" class="form-control" placeholder="Describe the issue here..." required></textarea>
+            </div>
+            <!-- Optional Media Inputs: Voice note, Photo upload (just UI simulators) -->
+            <div class="form-group">
+              <label id="label-media">Attach Supporting Evidence (Optional)</label>
+              <div class="media-inputs-grid">
+                
+                <!-- Mock Audio Record button -->
+                <div class="media-box" id="audioBtn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" x2="12" y1="19" y2="22"/></svg>
+                  <span id="audio-btn-txt">Record Voice Note</span>
+                  <div class="audio-status" id="audioStatus">00:00</div>
+                </div>
+                <!-- Mock Photo drop box -->
+                <div class="media-box" id="photoBtn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+                  <span id="photo-btn-txt">Upload / Snap Photo</span>
+                </div>
+              </div>
+            </div>
+            <div style="margin-top: 3rem;">
+              <button type="submit" class="btn btn-primary" id="btn-submit-form">Submit Request</button>
+            </div>
+          </form>
+        </div>
+        <!-- Right: Tip column -->
+        <div style="padding-top: 2rem;">
+          <div class="info-block" style="background: none; border-color: var(--border-color); padding: 2rem;">
+            <h3 id="tips-heading">Tips for Effective Submission</h3>
+            <ul class="editorial-list" style="margin-top: 1.5rem;">
+              <li>
+                <h4 id="tip-1-title">Be Specific</h4>
+                <p style="font-size: 0.85rem;" id="tip-1-desc">Instead of saying "Water issue", specify "Drinking water pipe broken near Gate No. 2 of the primary school".</p>
+              </li>
+              <li>
+                <h4 id="tip-2-title">Verify Location</h4>
+                <p style="font-size: 0.85rem;" id="tip-2-desc">Include landmark references so field officers sent by the MP can locate the site easily.</p>
+              </li>
+              <li>
+                <h4 id="tip-3-title">Add Photos</h4>
+                <p style="font-size: 0.85rem;" id="tip-3-desc">Visuals speed up reviews. Submissions with photos get processed 30% faster.</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- PAGE 3: My Submissions -->
+    <section id="page-my-submissions" class="page-section">
+      <h2 id="my-subs-title">My Past Submissions</h2>
+      <p style="margin-bottom: 2.5rem;" id="my-subs-lead">These requests are stored locally on your device. You can track their review and prioritization status below.</p>
+      
+      <div id="mySubmissionsContainer" class="submissions-list">
+        <!-- Dynmically loaded from script.js -->
+      </div>
+    </section>
+    <!-- PAGE 4: MP Dashboard -->
+    <section id="page-dashboard" class="page-section">
+      <h2 id="dashboard-title">MP Constituency Dashboard</h2>
+      <p style="margin-bottom: 2.5rem;" id="dashboard-lead">Ranked list of local suggestions. Use this workspace to filter issues by locality or category and flag prioritized requests.</p>
+      
+      <!-- Stats Bar -->
+      <div class="dashboard-stats-grid">
+        <div class="stat-card">
+          <div class="stat-label" id="stat-total-label">Total Submissions</div>
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-sub" id="stat-total-sub">Cumulative requests</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label" id="stat-cat-label">Top Concern Category</div>
+          <div class="stat-value" id="statCategory" style="font-size: 1.5rem; padding-top: 0.5rem; word-break: break-word;">None</div>
+          <div class="stat-sub" id="stat-cat-sub">Highest submission volume</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label" id="stat-area-label">Top Request Area</div>
+          <div class="stat-value" id="statArea" style="font-size: 1.5rem; padding-top: 0.5rem; word-break: break-word;">None</div>
+          <div class="stat-sub" id="stat-area-sub">Locality reporting most issues</div>
+        </div>
+      </div>
+      <!-- Filters Row -->
+      <div class="dashboard-filters">
+        <div class="filter-search">
+          <input type="text" id="dashboardSearch" class="form-control" placeholder="Search description, location, or request ID...">
+        </div>
+        
+        <select id="filterCategory" class="form-control filter-select">
+          <option value="">All Categories</option>
+          <!-- populated dynamically -->
+        </select>
+        
+        <select id="filterArea" class="form-control filter-select">
+          <option value="">All Areas</option>
+          <!-- populated dynamically -->
+        </select>
+        <select id="filterSort" class="form-control filter-select">
+          <option value="upvotes" id="opt-sort-upvotes">Rank: Most Upvoted</option>
+          <option value="date" id="opt-sort-date">Rank: Newest First</option>
+        </select>
+      </div>
+      <!-- Dashboard Data Table -->
+      <div class="table-wrapper">
+        <table class="dashboard-table" id="dashboardTable">
+          <thead>
+            <tr>
+              <th style="width: 80px;">ID</th>
+              <th style="width: 140px;" id="th-date">Date Submitted</th>
+              <th style="width: 180px;" id="th-category">Category</th>
+              <th style="width: 160px;" id="th-area">Area / Locality</th>
+              <th id="th-description">Description</th>
+              <th style="width: 120px;" id="th-upvotes">Upvotes</th>
+              <th style="width: 160px;" id="th-status">Status</th>
+              <th style="width: 100px;" id="th-actions">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="dashboardTableBody">
+            <!-- Dynamically populated -->
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <!-- Detailed View Modal -->
+  <div class="modal-backdrop" id="detailsModal">
+    <div class="modal-content">
+      <button class="modal-close" id="closeModalBtn">&times;</button>
+      
+      <div class="modal-header">
+        <div class="sub-meta" style="margin-bottom: 0.5rem;">
+          <span id="modalId">#ID-0000</span> &bull; <span id="modalDate">July 5, 2026</span>
+        </div>
+        <h2 id="modalCategory" style="border: none; padding: 0; margin-bottom: 0.5rem;">Water Supply</h2>
+        <div style="font-weight: 600;" id="modalArea">Ward 12, Karol Bagh</div>
+      </div>
+      
+      <div class="modal-body">
+        <p id="modalDesc" style="color: var(--text-main); font-size: 1.05rem; white-space: pre-line; margin-bottom: 1.5rem;">
+          Description content goes here.
+        </p>
+        <!-- Media Attachment Placeholders inside Modal -->
+        <div id="modalMediaContainer" style="margin-bottom: 1.5rem; display: flex; flex-direction: column; gap: 0.75rem;">
+          <!-- populates dynamic tags -->
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border-color); padding-top: 1.25rem;">
+          <div>
+            <span style="font-size: 0.85rem; color: var(--text-muted);" id="modal-status-label">Review Status:</span>
+            <span class="status-badge" id="modalStatusBadge" style="margin-left: 0.5rem;">Received</span>
+          </div>
+          <div>
+            <button class="btn-upvote" id="modalUpvoteBtn">
+              ▲ Upvote <span id="modalUpvotesCount">0</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="footer-left">
+        <div class="footer-logo">JanConnect<span class="logo-dot"></span></div>
+        <p style="font-size: 0.85rem; line-height: 1.5;" id="footer-desc">
+          An open civic feedback channel for local development tracking. Built to encourage digital transparency and direct cooperation between public representatives and citizens.
+        </p>
+        <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0;" id="footer-notice">
+          Frontend sandbox prototype. Data is kept locally in this browser's cache memory.
+        </p>
+      </div>
+      <div class="footer-right">
+        <div>
+          <h4 style="font-family: var(--font-sans); font-size: 0.85rem; text-transform: uppercase; margin-bottom: 0.75rem;" id="footer-links-label">Navigation</h4>
+          <ul class="footer-links">
+            <li><a href="#/" id="footer-link-home">Home</a></li>
+            <li><a href="#/submit" id="footer-link-submit">Submit Request</a></li>
+            <li><a href="#/my-submissions" id="footer-link-my-subs">My Requests</a></li>
+            <li><a href="#/dashboard" id="footer-link-dashboard">MP Dashboard</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+</body>
+</html>
